@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 
 import Header from './components/navigation/Header/Header.js';
-import List from './components/jobs/List.js';
+import List from './components/jobs/List/List.js';
+import Form from './components/jobs/Form/Form.js';
 
 class App extends Component {
   render() {
@@ -10,6 +11,8 @@ class App extends Component {
       <div>
         <Header />
         <div className="container">
+          <Form></Form>
+              
           <List />
         </div>
       </div>
