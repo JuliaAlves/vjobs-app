@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 
 import Card from '../Card/Card.js';
 import Loading from '../../Loading/Loading.js';
+import Form from '../Form/Form.js';
+import Collapse from '../../../hoc/Collapse/Collapse.js';
 
 import axios from 'axios';
-import loading from '../../Loading/Loading.js';
 
 class List extends Component {
     state = {
@@ -26,8 +27,10 @@ class List extends Component {
         if(window.confirm(`Deseja realmente excluir essa vaga?`))
             axios.delete('/vagas/'+ id)
             .then((res) =>{
-                console.log(res);
-                this.location.reload();
+                let v = this.state.jobs;
+                v.splice(v.findIndex(el => el.id === id),1);
+                this.setState({jobs: v});
+                alert(res.data);
             })
             .catch(error => {
                 console.log(error);
@@ -38,6 +41,12 @@ class List extends Component {
         window.alert(`Editar vaga ${nome}`);
     }
 
+    addItemToList = (newItem) => {
+        let v = this.state.jobs;
+        v.push(newItem);
+        this.setState({ jobs: v });
+    }
+
     render() {
         if (this.state.jobs.length > 0 || this.setState.jobs !== undefined)
             var vEncontradas = 
@@ -46,6 +55,7 @@ class List extends Component {
                         <div key={vaga.id} className="col-sm-12 col-md-6 col-lg-4 mb-3">
                             
                             <Card
+                                id={vaga.id}
                                 area={vaga.area} 
                                 name={vaga.name}
                                 description= {vaga.description}
@@ -56,12 +66,17 @@ class List extends Component {
                         </div>
                     );
                 });
-            else 
-                var vEncontradas = <loading />;
+        else 
+            var vEncontradas = <Loading />;
             
         return(
-            <div className="row mt-3">
-                {vEncontradas}
+            <div>
+                <Collapse collapseID='register' innerText='Nova Vaga'>
+                    <Form add= { this.addItemToList }/>
+                </Collapse>
+                <div className="row mt-3">
+                    {vEncontradas}
+                </div>
             </div>
         )
     }
