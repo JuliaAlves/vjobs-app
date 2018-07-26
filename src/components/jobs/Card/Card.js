@@ -29,7 +29,7 @@ const card = (props) => {
           <b>Salário base:</b>
           <p>{ props.salary }</p>
         </p>
-        <a href="#" onClick={ props.editHandler } className="btn btn-warning"><i className="fas fa-edit"></i></a>
+        <Link to={`/edit/${props.id}`} className="btn btn-warning"><i className="fas fa-edit"></i></Link>
         <a href="#" onClick={ props.removeHandler } className="btn btn-danger ml-1"><i className="far fa-trash-alt"></i></a>
         
       </div>

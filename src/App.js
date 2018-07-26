@@ -8,6 +8,7 @@ import About from './components/About/About.js'
 import More from './components/jobs/More/More.js'
 
 import {Switch, Route} from 'react-router-dom';
+import Form from './components/jobs/Form/Form';
 
 class App extends Component {
   render() {
@@ -18,6 +19,7 @@ class App extends Component {
           <Switch>
             <Route exact path='/' component={List}></Route>
             <Route exact path='/vaga/:id' component={More}></Route>
+            <Route exact path='/edit/:id' component={Form}></Route>
             <Route path='/vagas' component={List}></Route>
             <Route path='/sobre' component={About}></Route>
           </Switch>
