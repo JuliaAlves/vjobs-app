@@ -2,7 +2,7 @@ import React from 'react';
 import logo from '../../../assets/images/logo-h-vjobs.png';
 import {Link} from 'react-router-dom';
 
-const header = () => (
+const header = (props) => (
     <nav className="navbar navbar-expand-lg navbar-light bg-dark ">
         <div className="container">
             <Link className="navbar-brand" to="/">
@@ -24,6 +24,12 @@ const header = () => (
                 </ul>
             </div>
         </div>
+        <a className="nav-item nav-link text-white">
+            {props.username}
+        </a>
+        <a className="nav-item nav-link text-white" onClick={props.logout}>
+            <i className="fas fa-sign-out-alt"/>
+        </a>
     </nav>
 )
 

@@ -23,9 +23,14 @@ class List extends Component {
     }
 
     removeHandler = (id) => {
-        console.log(id);
+        const axiosConfig ={
+            headers: {
+                'Authorization': 'Bearer ' + window.localStorage.getItem('token')
+            }
+        }
+
         if(window.confirm(`Deseja realmente excluir essa vaga?`))
-            axios.delete('/vagas/'+ id)
+            axios.delete('/vagas/'+ id, axiosConfig)
             .then((res) =>{
                 let v = this.state.jobs;
                 v.splice(v.findIndex(el => el.id === id),1);

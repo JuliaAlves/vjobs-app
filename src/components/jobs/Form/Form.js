@@ -6,12 +6,18 @@ class Form extends Component{
     state = {
         newJob: {}
     }
-
+    
     postDataHandler = (event) => {
+        const axiosConfig ={
+            headers: {
+                'Authorization': 'Bearer ' + window.localStorage.getItem('token')
+            }
+        }
+
         let vaga = {...this.state.newJob};
         if(this.props.add !== undefined && this.props.add !== ''){
             
-            Axios.post('/vagas', vaga)
+            Axios.post('/vagas', vaga, axiosConfig)
             .then((res) => {
                 vaga.id = res.data;
                 this.props.add(vaga);
@@ -21,7 +27,7 @@ class Form extends Component{
             });
         }
         else{
-            Axios.put('/vagas/'+this.props.match.params.id, vaga)
+            Axios.put('/vagas/'+this.props.match.params.id, vaga, axiosConfig)
             .then((res) => {
                 alert('Alterado');
                 this.props.history.push('/vagas');
@@ -42,7 +48,7 @@ class Form extends Component{
     }
 
     componentDidMount = () =>{
-        if(this.props.add == undefined || this.props.add == ''){
+        if(this.props.add === undefined || this.props.add == ''){
             Axios.get('/vagas/'+this.props.match.params.id)
                 .then((res)=>{
                     this.setState({newJob: res.data});
